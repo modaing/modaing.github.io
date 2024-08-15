@@ -96,7 +96,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        min-height: 130px;
+        min-height: 140px;
         padding: 0 30px;
         ul {
             display: flex;
@@ -194,7 +194,7 @@
                     min-width: 0;
                     max-width: 400px !important;
                     height: auto !important;
-                    min-height: 120px !important;
+                    min-height: 140px !important;
                     padding: 10px 20px !important;
                     border-radius: 0px !important;
                     box-sizing: border-box !important;
@@ -262,8 +262,8 @@
 
 @media (min-width: 921px) {
     .stack_container ul li:hover {
-        padding-right: 180px;
-        height: 120px;
+        padding-right: 200px;
+        height: 140px;
 
         div {
             left: 90px;

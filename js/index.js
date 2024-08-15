@@ -7,11 +7,15 @@ let vMove;
 // Fullpage 옵션 및 애니메이션 적용
 new fullpage('#fullpage', {
     // Options
+    responsiveHeight: 0,  // 이 옵션을 0으로 설정하거나 완전히 제거
     licenseKey: '',
     autoScrolling: false,
-
+    scrollOverflowReset: true,
+    scrollOverflowOptions: {
+        scrollbars: false,
+    },
     fitToSection: false,
-    scrollOverflow: true,
+    scrollOverflow: false,
     scrollingSpeed: 600,
     easingcss3: 'cubic-bezier(0.770, 0.000, 0.175, 1.000)',
     css3: false,
@@ -51,6 +55,9 @@ new fullpage('#fullpage', {
                 $('#Stacks').addClass('visible');
                 timeOutarray[i++] = setTimeout(() => $('#frontendStack').addClass('visible'), 100);
                 timeOutarray[i++] = setTimeout(() => $('#backendStack').addClass('visible'), 400);
+                timeOutarray[i++] = setTimeout(() => $('#databaseStack').addClass('visible'), 400);
+                timeOutarray[i++] = setTimeout(() => $('#networkTechnologiesStack').addClass('visible'), 400);
+                timeOutarray[i++] = setTimeout(() => $('#cloudServicesStack').addClass('visible'), 400);
                 timeOutarray[i++] = setTimeout(() => $('#toolStack').addClass('visible'), 700);
                 break;
             case 3:
@@ -83,6 +90,9 @@ new fullpage('#fullpage', {
                 $('#Stacks').removeClass('visible');
                 $('#frontendStack').removeClass('visible');
                 $('#backendStack').removeClass('visible');
+                $('#databaseStack').removeClass('visible');
+                $('#networkTechnologiesStack').removeClass('visible');
+                $('#cloudServicesStack').removeClass('visible');
                 $('#toolStack').removeClass('visible');
                 break;
             case 3:
@@ -162,17 +172,17 @@ function resizeStarCanvas() {
 }
 resizeStarCanvas();
 
-function drawStars() {
-    for (let i = 0; i < 100; i++) {
-        const x = Math.random() * starCanvas.width;
-        const y = Math.random() * starCanvas.height;
-        const size = Math.random() * 2 + 1;
-        starContext.fillStyle = 'rgba(255, 255, 255, ' + (Math.random() * 0.5 + 0.5) + ')';
-        starContext.beginPath();
-        starContext.arc(x, y, size, 0, 2 * Math.PI);
-        starContext.fill();
-    }
-}
+// function drawStars() {
+//     for (let i = 0; i < 100; i++) {
+//         const x = Math.random() * starCanvas.width;
+//         const y = Math.random() * starCanvas.height;
+//         const size = Math.random() * 2 + 1;
+//         starContext.fillStyle = 'rgba(255, 255, 255, ' + (Math.random() * 0.5 + 0.5) + ')';
+//         starContext.beginPath();
+//         starContext.arc(x, y, size, 0, 2 * Math.PI);
+//         starContext.fill();
+//     }
+// }
 
 setInterval(drawStars, 1000 / 30); // 30fps로 업데이트
 
@@ -392,15 +402,29 @@ const moreButtonClick = (e) => {
 const subImgClick = (e, index, m = false) => {
     $('.wi' + e + ' .IMG_sub').removeClass('active');
     $('.wi' + e + ' .IMG_sub').eq(index).addClass('active');
-    if (m) {
-        //$('.wi' + e + ' .IMG_main').html(`<img class='mobileImg' src='./src/img/project_img/${e}_${index}.jpg' alt='프로젝트 이미지' onclick="mainImgClick(${e}, ${index}, ${m})">`);
-        document.querySelector('.wi' + e + ' .IMG_main').outerHTML = `<div class="IMG_main" onclick="mainImgClick(${e}, ${index}, ${m})"><img class='mobileImg' src='./src/img/project_img/${e}_${index}.jpg' alt='프로젝트 이미지'></div>`;
-    } else {
-        //$('.wi' + e + ' .IMG_main').html(`<img src='./src/img/project_img/${e}_${index}.jpg' alt='프로젝트 이미지' onclick="mainImgClick(${e}, ${index}, ${m})">`);
-        document.querySelector('.wi' + e + ' .IMG_main').outerHTML = `<div class="IMG_main" onclick="mainImgClick(${e}, ${index}, ${m})"><img src='./src/img/project_img/${e}_${index}.jpg' alt='프로젝트 이미지'></div>`;
+    
+    const mainImgContainer = document.querySelector('.wi' + e + ' .IMG_main');
+    if (!mainImgContainer) {
+        console.error('Main image container not found');
+        return;
     }
-    $('.wi' + e + ' .IMG_main img').css({ opacity: '0' });
-    $('.wi' + e + ' .IMG_main img').animate({ opacity: '1' }, 150);
+
+    let newHTML;
+    if (m) {
+        newHTML = `<div class="IMG_main" onclick="mainImgClick(${e}, ${index}, ${m})"><img class='mobileImg' src='./src/img/project_img/${e}_${index}.jpg' alt='프로젝트 이미지'></div>`;
+    } else {
+        newHTML = `<div class="IMG_main" onclick="mainImgClick(${e}, ${index}, ${m})"><img src='./src/img/project_img/${e}_${index}.jpg' alt='프로젝트 이미지'></div>`;
+    }
+    
+    mainImgContainer.outerHTML = newHTML;
+
+    const newImg = $('.wi' + e + ' .IMG_main img');
+    if (newImg.length > 0) {
+        newImg.css({ opacity: '0' });
+        newImg.animate({ opacity: '1' }, 150);
+    } else {
+        console.error('New image not found');
+    }
 }
 
 const mainImgClick = (e, index, m = false) => {
@@ -509,7 +533,7 @@ $(".Visual_wrap").append($(".Visual_wrap ul").clone());
 
 const visualMove = () => {
     $(".Visual_wrap").css({ left: `${leftValue}px` });
-    if ($(".Visual_wrap").offset().left <= -1 * $('.Visual_wrap ul').outerWidth()) {
+    if ($(".Visual_wrap").offset()?.left <= -1 * $('.Visual_wrap ul').outerWidth()) {
         leftValue = 0;
     }
     leftValue -= speed;
