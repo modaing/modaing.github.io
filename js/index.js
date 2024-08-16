@@ -77,7 +77,7 @@ new fullpage('#fullpage', {
         $('header .right li').removeClass('visible');
         $('#menu' + index.index).addClass('visible');
         $('#about1').removeClass('visible');
-        timeOutarray.forEach((e) => {
+        timeOutarray?.forEach((e) => {
             clearTimeout(e);
         });
 
@@ -411,9 +411,9 @@ const subImgClick = (e, index, m = false) => {
 
     let newHTML;
     if (m) {
-        newHTML = `<div class="IMG_main" onclick="mainImgClick(${e}, ${index}, ${m})"><img class='mobileImg' src='./src/img/project_img/${e}_${index}.jpg' alt='프로젝트 이미지'></div>`;
+        newHTML = `<div class="IMG_main" onclick="mainImgClick(${e}, ${index}, ${m})"><img class='mobileImg' src='./src/img/project_img/${e}_${index}.png' alt='프로젝트 이미지'></div>`;
     } else {
-        newHTML = `<div class="IMG_main" onclick="mainImgClick(${e}, ${index}, ${m})"><img src='./src/img/project_img/${e}_${index}.jpg' alt='프로젝트 이미지'></div>`;
+        newHTML = `<div class="IMG_main" onclick="mainImgClick(${e}, ${index}, ${m})"><img src='./src/img/project_img/${e}_${index}.png' alt='프로젝트 이미지'></div>`;
     }
     
     mainImgContainer.outerHTML = newHTML;
@@ -431,9 +431,9 @@ const mainImgClick = (e, index, m = false) => {
     $('.sizeUP').addClass('visible');
     $('.sizeUP').focus();
     if (m) {
-        $('.sizeUP .ct').html(`<img class='mobileImg' src='./src/img/project_img/${e}_${index}.jpg' alt='프로젝트 이미지'>`);
+        $('.sizeUP .ct').html(`<img class='mobileImg' src='./src/img/project_img/${e}_${index}.png' alt='프로젝트 이미지'>`);
     } else {
-        $('.sizeUP .ct').html(`<img src='./src/img/project_img/${e}_${index}.jpg' alt='프로젝트 이미지'>`);
+        $('.sizeUP .ct').html(`<img src='./src/img/project_img/${e}_${index}.png' alt='프로젝트 이미지'>`);
     }
     $('.sizeUP .ct').scrollTop(0);
     $('html').css('overflow', 'hidden');
