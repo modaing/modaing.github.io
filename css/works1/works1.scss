@@ -377,6 +377,43 @@
                             }
                         }
 
+                        .youtube {
+                            position: relative;
+                            height: 38px;
+                            line-height: 38px;
+                            padding-right: 17px;
+                            padding-left: 36px;
+                            opacity: 1;
+                            font-size: 0.9rem;
+                            font-weight: 500;
+                            color: rgb(255, 255, 255);
+                            background-color: rgb(196, 48, 43);
+                            transition: 150ms;
+                            white-space: nowrap;
+
+                            &::before {
+                                position: absolute;
+                                content: '';
+                                width: 30px;
+                                height: 30px;
+                                top: 50%;
+                                left: 5px;
+                                transform: translateY(-50%);
+                                background: url(../../src/img/youtube.png) 50% 50% no-repeat;
+                                background-size: 12px 12px;
+                                z-index: 10;
+                                filter: invert(100%);
+                            }
+
+                            &.visible {
+                                opacity: 1;
+                            }
+
+                            &:hover {
+                                background-color: rgb(57, 57, 124);
+                            }
+                        }
+
                         .readme {
                             position: relative;
                             height: 38px;
