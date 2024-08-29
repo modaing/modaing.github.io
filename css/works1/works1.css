@@ -373,6 +373,10 @@
     white-space: nowrap;
 }
 
+.Works1_container .Item_container .wi .Item_wrap .info_wrap .button_wrap .youtube:hover {
+    background-color: #e04c47
+}
+
 .Works1_container .Item_container .wi .Item_wrap .info_wrap .button_wrap .goto::before {
     position: absolute;
     content: '';
